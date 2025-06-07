@@ -158,7 +158,7 @@ public final class Location {
     
     /// Initiate a new async stream to monitor the status of the location services.
     /// - Returns: observable async stream.
-    public func startMonitoringLocationServices() async -> Tasks.LocationServicesEnabled.Stream {
+    public func startMonitoringLocationServices() -> Tasks.LocationServicesEnabled.Stream {
         let task = Tasks.LocationServicesEnabled()
         return Tasks.LocationServicesEnabled.Stream { stream in
             task.stream = stream
@@ -179,7 +179,7 @@ public final class Location {
     /// Monitor updates about the authorization status.
     ///
     /// - Returns: stream of authorization statuses.
-    public func startMonitoringAuthorization() async -> Tasks.Authorization.Stream {
+    public func startMonitoringAuthorization() -> Tasks.Authorization.Stream {
         let task = Tasks.Authorization()
         return Tasks.Authorization.Stream { stream in
             task.stream = stream
@@ -200,7 +200,7 @@ public final class Location {
     /// Monitor accuracy authorization level.
     ///
     /// - Returns: a stream of statuses.
-    public func startMonitoringAccuracyAuthorization() async -> Tasks.AccuracyAuthorization.Stream {
+    public func startMonitoringAccuracyAuthorization() -> Tasks.AccuracyAuthorization.Stream {
         let task = Tasks.AccuracyAuthorization()
         return Tasks.AccuracyAuthorization.Stream { stream in
             task.stream = stream
@@ -256,7 +256,7 @@ public final class Location {
     /// Start receiving changes of the locations with a stream.
     ///
     /// - Returns: events received from the location manager.
-    public func startMonitoringLocations() async throws -> Tasks.ContinuousUpdateLocation.Stream {
+    public func startMonitoringLocations() throws -> Tasks.ContinuousUpdateLocation.Stream {
         guard locationManager.authorizationStatus != .notDetermined else {
             throw LocationErrors.authorizationRequired
         }
@@ -312,7 +312,7 @@ public final class Location {
     ///
     /// - Parameter region: region to monitor.
     /// - Returns: stream of events.
-    public func startMonitoring(region: CLRegion) async throws -> Tasks.RegionMonitoring.Stream {
+    public func startMonitoring(region: CLRegion) throws -> Tasks.RegionMonitoring.Stream {
         let task = Tasks.RegionMonitoring(instance: self, region: region)
         return Tasks.RegionMonitoring.Stream { stream in
             task.stream = stream
@@ -340,7 +340,7 @@ public final class Location {
     /// Starts monitoring visits to locations.
     ///
     /// - Returns: stream of events for visits.
-    public func startMonitoringVisits() async -> Tasks.VisitsMonitoring.Stream {
+    public func startMonitoringVisits() -> Tasks.VisitsMonitoring.Stream {
         let task = Tasks.VisitsMonitoring()
         return Tasks.VisitsMonitoring.Stream { stream in
             task.stream = stream
@@ -365,7 +365,7 @@ public final class Location {
     /// Starts monitoring significant location changes.
     ///
     /// - Returns: stream of events of location changes.
-    public func startMonitoringSignificantLocationChanges() async -> Tasks.SignificantLocationMonitoring.Stream {
+    public func startMonitoringSignificantLocationChanges() -> Tasks.SignificantLocationMonitoring.Stream {
         let task = Tasks.SignificantLocationMonitoring()
         return Tasks.SignificantLocationMonitoring.Stream { stream in
             task.stream = stream
@@ -390,7 +390,7 @@ public final class Location {
     /// Starts monitoring heading changes.
     ///
     /// - Returns: stream of events for heading
-    public func startUpdatingHeading() async -> Tasks.HeadingMonitoring.Stream {
+    public func startUpdatingHeading() -> Tasks.HeadingMonitoring.Stream {
         let task = Tasks.HeadingMonitoring()
         return Tasks.HeadingMonitoring.Stream { stream in
             task.stream = stream
@@ -416,7 +416,7 @@ public final class Location {
     /// - Parameter satisfying: A `CLBeaconIdentityConstraint` constraint.
     /// - Returns: stream of events related to passed constraint.
     #if !os(watchOS) && !os(tvOS)
-    public func startRangingBeacons(satisfying: CLBeaconIdentityConstraint) async -> Tasks.BeaconMonitoring.Stream {
+    public func startRangingBeacons(satisfying: CLBeaconIdentityConstraint) -> Tasks.BeaconMonitoring.Stream {
         let task = Tasks.BeaconMonitoring(satisfying: satisfying)
         return Tasks.BeaconMonitoring.Stream { stream in
             task.stream = stream

@@ -45,7 +45,7 @@ final class SwiftLocationTests: XCTestCase {
     func testMonitoringLocationServicesEnabled() async throws {
         let expectedValues = simulateLocationServicesChanges()
         var idx = 0
-        for await event in await self.location.startMonitoringLocationServices() {
+        for await event in self.location.startMonitoringLocationServices() {
             print("Location services enabled did change: \(event.isLocationEnabled ? "enabled" : "disabled")")
             XCTAssertEqual(expectedValues[idx], event.isLocationEnabled, "Failed to get correct values from location services enabled")
             idx += 1
@@ -59,7 +59,7 @@ final class SwiftLocationTests: XCTestCase {
     func testMonitoringAuthorizationStatus() async throws {
         let expectedValues = simulateAuthorizationStatusChanges()
         var idx = 0
-        for await event in await self.location.startMonitoringAuthorization() {
+        for await event in self.location.startMonitoringAuthorization() {
             print("Authorization status did change: \(event.authorizationStatus.description)")
             XCTAssertEqual(expectedValues[idx], event.authorizationStatus, "Failed to get correct values from authorization status")
             idx += 1
@@ -73,7 +73,7 @@ final class SwiftLocationTests: XCTestCase {
     func testMonitoringAccuracyAuthorization() async throws {
         let expectedValues = simulateAccuracyAuthorizationChanges()
         var idx = 0
-        for await event in await self.location.startMonitoringAccuracyAuthorization() {
+        for await event in self.location.startMonitoringAccuracyAuthorization() {
             print("Accuracy authorization did change: \(event.accuracyAuthorization.description)")
             XCTAssertEqual(expectedValues[idx], event.accuracyAuthorization, "Failed to get correct values from accuracy authorization status")
             idx += 1
@@ -140,7 +140,7 @@ final class SwiftLocationTests: XCTestCase {
         
         let initialStatus = mockLocationManager.authorizationStatus
         Task.detached {
-            for await event in await self.location.startMonitoringAuthorization() {
+            for await event in self.location.startMonitoringAuthorization() {
                 print("Authorization switched from \(initialStatus) to \(event.authorizationStatus.description)")
                 exp.fulfill()
             }
@@ -211,7 +211,7 @@ final class SwiftLocationTests: XCTestCase {
         #endif
         let expectedValues = simulateLocationUpdates()
         var idx = 0
-        for await event in try await self.location.startMonitoringLocations() {
+        for await event in try self.location.startMonitoringLocations() {
             print("Accuracy authorization did change: \(event.description)")
             XCTAssertEqual(expectedValues[idx], event)
             idx += 1
@@ -315,7 +315,7 @@ final class SwiftLocationTests: XCTestCase {
     func testMonitorCLRegion() async throws {
         let (expectedValues, region) = simulateRegions()
         var idx = 0
-        for await event in try await self.location.startMonitoring(region: region) {
+        for await event in try self.location.startMonitoring(region: region) {
             print("Monitoring region event received: \(event.description)")
             XCTAssertEqual(expectedValues[idx], event)
             idx += 1
@@ -330,7 +330,7 @@ final class SwiftLocationTests: XCTestCase {
     func testMonitoringVisits() async throws {
         let expectedValues = simulateVisits()
         var idx = 0
-        for await event in await self.location.startMonitoringVisits() {
+        for await event in self.location.startMonitoringVisits() {
             print("Monitoring region event received: \(event.description)")
             XCTAssertEqual(expectedValues[idx], event)
             idx += 1
@@ -345,7 +345,7 @@ final class SwiftLocationTests: XCTestCase {
     func testMonitoringSignificantLocationChanges() async throws {
         let expectedValues = simulateSignificantLocations()
         var idx = 0
-        for await event in await self.location.startMonitoringSignificantLocationChanges() {
+        for await event in self.location.startMonitoringSignificantLocationChanges() {
             print("Visits received: \(event.description)")
             XCTAssertEqual(expectedValues[idx], event)
             idx += 1
