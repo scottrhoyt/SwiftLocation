@@ -107,6 +107,7 @@ public final class Location {
         set { locationManager.distanceFilter = newValue }
     }
     
+#if !os(tvOS)
     /// Indicates whether the app receives location updates when running in the background.
     /// By default is `false`.
     ///
@@ -117,12 +118,18 @@ public final class Location {
     /// Core Location configures the system to keep the app running to receive continuous background location updates,
     /// and arranges to show the background location indicator (blue bar or pill) if needed.
     /// Updates continue even if the app subsequently enters the background.
-    #if !os(tvOS)
     public var allowsBackgroundLocationUpdates: Bool {
         get { locationManager.allowsBackgroundLocationUpdates }
         set { locationManager.allowsBackgroundLocationUpdates = newValue }
     }
-    #endif
+    
+    /// Indicates whether or not location updates are allowed to be paused automatically (e.g. when the device becomes stationary).
+    /// This saves battery, but the location services must be resumed manually (i.e. when motion is detected again). Default is `true`.
+    public var pausesLocationUpdatesAutomatically: Bool {
+        get { locationManager.pausesLocationUpdatesAutomatically }
+        set { locationManager.pausesLocationUpdatesAutomatically = newValue }
+    }
+#endif
     
     // MARK: - Initialization
     

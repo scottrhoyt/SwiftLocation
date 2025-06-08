@@ -48,6 +48,7 @@ public protocol LocationManagerProtocol {
     
     #if !os(tvOS)
     var allowsBackgroundLocationUpdates: Bool { get set }
+    var pausesLocationUpdatesAutomatically: Bool { get set }
     #endif
     
     func locationServicesEnabled() -> Bool

@@ -33,6 +33,7 @@ public class MockedLocationManager: LocationManagerProtocol {
     public weak var delegate: CLLocationManagerDelegate?
 
     public var allowsBackgroundLocationUpdates: Bool = false
+    public var pausesLocationUpdatesAutomatically: Bool = true
     
     public var isLocationServicesEnabled: Bool = true {
         didSet {
