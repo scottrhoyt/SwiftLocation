@@ -36,7 +36,7 @@ extension Tasks {
         public typealias Stream = AsyncStream<StreamEvent>
 
         /// The event produced by the stream.
-        public enum StreamEvent {
+        public enum StreamEvent: Sendable {
             
             /// Authorization did change with a new value
             case didChangeAuthorization(_ status: CLAuthorizationStatus)

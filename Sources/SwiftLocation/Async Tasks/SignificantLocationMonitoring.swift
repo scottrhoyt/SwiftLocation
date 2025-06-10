@@ -36,7 +36,7 @@ extension Tasks {
         public typealias Stream = AsyncStream<StreamEvent>
 
         /// The event produced by the stream.
-        public enum StreamEvent: CustomStringConvertible, Equatable {
+        public enum StreamEvent: CustomStringConvertible, Equatable, Sendable {
             
             /// Location changes stream paused.
             case didPaused
