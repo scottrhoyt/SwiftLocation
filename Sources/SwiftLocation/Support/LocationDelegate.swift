@@ -42,9 +42,11 @@ final class LocationDelegate: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        asyncBridge?.dispatchEvent(.didChangeAuthorization(locationManager.authorizationStatus))
-        asyncBridge?.dispatchEvent(.didChangeAccuracyAuthorization(locationManager.accuracyAuthorization))
-        asyncBridge?.dispatchEvent(.didChangeLocationEnabled(locationManager.locationServicesEnabled()))
+        Task.detached { [asyncBridge, locationManager] in
+            asyncBridge?.dispatchEvent(.didChangeAuthorization(locationManager.authorizationStatus))
+            asyncBridge?.dispatchEvent(.didChangeAccuracyAuthorization(locationManager.accuracyAuthorization))
+            asyncBridge?.dispatchEvent(.didChangeLocationEnabled(locationManager.locationServicesEnabled()))
+        }
     }
     
     // MARK: - Location Updates
